@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplayer Poker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="name-modal">
+        <div>
+            <label for="name-input">Enter your name:</label>
+            <input type="text" id="name-input" maxlength="15"><br>
+            <button id="name-submit">Join Game</button>
+        </div>
+    </div>
+
+    <div class="poker-table" id="poker-table">
+        <div id="winner-display">Winner Info Here</div>
+
+        <div class="community-card-area" id="community-cards">
+            <span class="waiting-message">Waiting for deal...</span>
+        </div>
+
+        <div class="pot-area" id="pot-area">
+            Pot: $0
+        </div>
+        </div>
+
+    <div class="action-area" id="action-area">
+        <button class="action-button fold-button" id="fold-button" disabled>Fold</button>
+        <button class="action-button check-button" id="check-button" disabled>Check</button>
+        <button class="action-button call-button" id="call-button" disabled>Call $0</button>
+        <button class="action-button bet-button" id="bet-button" disabled>Bet</button>
+        <button class="action-button raise-button" id="raise-button" disabled>Raise to $0</button>
+
+        <div class="bet-slider-container" id="bet-slider-container">
+            <input type="range" id="bet-slider" class="bet-slider" min="0" max="0" step="1" value="0" disabled>
+            <span id="bet-amount-label">$0</span>
+        </div>
+    </div>
+
+    <div class="message-log" id="message-log">
+        <p class="system-message"><strong>System:</strong> Initializing...</p>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+
+</body>
+</html>
