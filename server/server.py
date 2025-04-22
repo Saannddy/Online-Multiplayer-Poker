@@ -8,6 +8,7 @@ from collections import defaultdict, Counter
 from typing import List, Dict, Tuple, Set, Optional, Any
 import logging
 import time
+import ssl
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] (%(funcName)s) %(message)s')
 
@@ -726,7 +727,6 @@ class PokerGame:
                 if num_winners > 0:
                     win_each = pot_amount // num_winners; remainder = pot_amount % num_winners
                     if remainder > 0: logging.warning(f"{pot_name} split resulted in ${remainder} remainder, which is ignored.")
-                    logging.info(f"{pot_name} Winner(s) ({num_winners}): {[f'P{w["id"]}({w["name"]})' for w in pot_winners]}. Each wins ${win_each}")
                     for winner in pot_winners:
                         player_winnings[winner["id"]] += win_each
                         summary_entry = next((item for item in final_winners_summary if item["playerId"] == winner["id"]), None)
@@ -814,9 +814,32 @@ async def main():
         try: await game.game_loop_task
         except asyncio.CancelledError: pass
         logging.info("Previous game loop task cancelled."); game.game_loop_task = None
-    host = "0.0.0.0"; port = 8765; logging.info(f"--- Starting Poker WebSocket Server on ws://{host}:{port} ---")
+        
+    CERT_PATH = "cert.pem" 
+    KEY_PATH = "key.pem"   
+
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     try:
-        async with websockets.serve(handler, host, port) as server:
+        ssl_context.load_cert_chain(certfile=CERT_PATH, keyfile=KEY_PATH)
+        logging.info(f"SSL certificate loaded successfully from {CERT_PATH} and {KEY_PATH}")
+        use_ssl = True
+    except FileNotFoundError:
+        logging.error(f"!!! SSL Error: Certificate ({CERT_PATH}) or Key ({KEY_PATH}) not found.")
+        logging.error("!!! Server will start WITHOUT SSL (ws://). Communication will NOT be secure.")
+        ssl_context = None
+        use_ssl = False
+    except ssl.SSLError as e:
+        logging.error(f"!!! SSL Error loading certificate/key: {e}")
+        logging.error("!!! Server will start WITHOUT SSL (ws://). Communication will NOT be secure.")
+        ssl_context = None
+        use_ssl = False
+        
+    host = "0.0.0.0"; port = 8765; logging.info(f"--- Starting Poker WebSocket Server on wss://{host}:{port} ---")
+    protocol = "wss" if use_ssl else "ws"
+    logging.info(f"--- Starting Poker WebSocket Server on {protocol}://{host}:{port} ---")
+    
+    try:
+        async with websockets.serve(handler, host, port, ssl=ssl_context if use_ssl else None) as server:
              logging.info(f"Server listening on {server.sockets[0].getsockname()}")
              await stop_server
     except asyncio.CancelledError: logging.info("Main server task was cancelled.")

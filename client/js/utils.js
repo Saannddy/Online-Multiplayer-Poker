@@ -5,7 +5,7 @@ import { Elements } from './config.js';
 export function addLogMessage(htmlMessage, type = "system") {
     const p = document.createElement('p');
     p.className = `${type}-message`;
-    p.innerHTML = `[${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}] ${htmlMessage}`;
+    p.textContent = `[${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}] ${htmlMessage}`;
     Elements.messageLog.appendChild(p);
     Elements.messageLog.scrollTop = Elements.messageLog.scrollHeight;
 }

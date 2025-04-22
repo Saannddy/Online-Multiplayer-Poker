@@ -16,7 +16,7 @@ export function handleServerMessage(data) {
     switch (data.type) {
         case 'assign_id':
             state.setMyPlayerId(data.payload.playerId);
-            addLogMessage(`<strong>System:</strong> Assigned Player ID: ${state.myPlayerId}.`, "system");
+            addLogMessage(`System: Assigned Player ID: ${state.myPlayerId}.`, "system");
             break;
         case 'game_state':
             updateUI(data.payload); // Delegate UI update
@@ -31,16 +31,16 @@ export function handleServerMessage(data) {
             if (data.payload.playerId === state.myPlayerId) {
                 state.setCurrentTurnOptions(data.payload); // Store options in state
                 enableActions(data.payload); // Delegate enabling actions
-                addLogMessage("<strong>Game:</strong> It's YOUR turn!", "game");
+                addLogMessage("Game: It's YOUR turn!", "game");
             } else {
                 disableAllActions();
                 const currentPlayer = state.playerMap[data.payload.playerId];
                 const playerName = currentPlayer?.name || `Player ${data.payload.playerId}`;
-                addLogMessage(`<strong>Game:</strong> Waiting for ${playerName}...`, "game");
+                addLogMessage(`Game: Waiting for ${playerName}...`, "game");
             }
             break;
         case 'game_message':
-            addLogMessage(`<strong>Game:</strong> ${data.payload.message}`, "game");
+            addLogMessage(`Game: ${data.payload.message}`, "game");
             break;
         case 'player_action':
              const actor = state.playerMap[data.payload.playerId];
@@ -49,7 +49,7 @@ export function handleServerMessage(data) {
              if (data.payload.amount != null) {
                  actionMsg += ` $${data.payload.amount}`;
              }
-             addLogMessage(`<strong>${name}:</strong> ${actionMsg}`, "action");
+             addLogMessage(`${name}: ${actionMsg}`, "action");
              break;
          case 'pot_awarded':
              handlePotAwarded(data.payload); // Delegate
@@ -58,13 +58,13 @@ export function handleServerMessage(data) {
              handleShowdownReveal(data.payload); // Delegate
              break;
         case 'error':
-            addLogMessage(`<strong>Error:</strong> ${data.payload.message}`, "error");
+            addLogMessage(`Error: ${data.payload.message}`, "error");
             if (data.payload.message && data.payload.message.toLowerCase().includes("not your turn")) {
                 disableAllActions();
             }
             break;
         default:
             console.warn("Unknown message type received:", data.type);
-            addLogMessage(`<strong>System:</strong> Received unknown message type '${data.type}'`, "system");
+            addLogMessage(`System: Received unknown message type '${data.type}'`, "system");
     }
 }

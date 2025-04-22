@@ -1,6 +1,6 @@
 // js/config.js
 
-export const WS_URL = `ws://${window.location.hostname || 'localhost'}:8765`;
+export const WS_URL = `wss://${window.location.hostname || 'localhost'}:8765`;
 export const WINNER_DISPLAY_DURATION = 5000; // ms
 export const MAX_NAME_LENGTH = 15;
 

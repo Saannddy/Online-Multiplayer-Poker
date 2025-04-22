@@ -36,7 +36,7 @@ function setupEventListeners() {
 
 // --- Initialization ---
 function initializeGame() {
-    addLogMessage("<strong>System:</strong> Client initialized.", "system");
+    addLogMessage("System: Client initialized.", "system");
     disableAllActions();
     hideWinnerDisplay();
     Elements.nameModal.style.display = 'none'; // Start hidden

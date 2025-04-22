@@ -6,7 +6,6 @@ import { sendMessage } from './websocket.js';
 
 /** Disables all player action buttons and hides the action area */
 export function disableAllActions() {
-    console.log("Disabling actions.");
     Elements.foldButton.disabled = true;
     Elements.checkButton.disabled = true;
     Elements.callButton.disabled = true;
@@ -56,7 +55,7 @@ export function enableActions(options) {
 
          if (typeof minVal !== 'number' || isNaN(minVal) || typeof maxVal !== 'number' || isNaN(maxVal) || typeof stepVal !== 'number' || isNaN(stepVal) || stepVal <= 0) {
              console.error("Invalid slider range/step values:", { minVal, maxVal, stepVal });
-             addLogMessage("<strong>Error:</strong> Invalid bet range received.", "error");
+             addLogMessage("Error: Invalid bet range received.", "error");
              Elements.betSlider.min = 0; Elements.betSlider.max = 0; Elements.betSlider.step = 1; Elements.betSlider.value = 0;
              Elements.betSlider.disabled = true; Elements.betButton.disabled = true; Elements.raiseButton.disabled = true;
              Elements.betAmountLabel.textContent = "$??";
@@ -91,7 +90,7 @@ export function validateBetRaiseAmount(amount) {
     if (amount >= minValid && amount <= maxValid) {
         return true;
     } else {
-        addLogMessage(`<strong>System:</strong> Invalid amount ($${amount}). Min: $${minValid}, Max: $${maxValid}`, "error");
+        addLogMessage(`System: Invalid amount ($${amount}). Min: $${minValid}, Max: $${maxValid}`, "error");
         console.error("Client-side validation failed:", { amount, minValid, maxValid });
         return false;
     }
@@ -151,11 +150,11 @@ export function handleNameSubmit() {
     const name = Elements.nameInput.value.trim().substring(0, MAX_NAME_LENGTH);
     if (name && state.myPlayerId) {
         sendMessage("set_name", { name: name });
-        addLogMessage(`<strong>System:</strong> Name '${name}' submitted. Waiting for game...`, "system");
+        addLogMessage(`System: Name '${name}' submitted. Waiting for game...`, "system");
         Elements.nameModal.style.display = 'none';
     } else if (!name) {
         alert("Please enter a name.");
     } else {
-        addLogMessage("<strong>System:</strong> Cannot set name - connection issue or no Player ID.", "error");
+        addLogMessage("System: Cannot set name - connection issue or no Player ID.", "error");
     }
 }

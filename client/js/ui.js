@@ -18,7 +18,6 @@ export function clearTable() {
 
 /** Updates the entire game UI based on the state received from the server */
 export function updateUI(serverState) {
-    console.log("Updating UI with state:", serverState);
     state.setPlayerMap(serverState.players || {}); // Update local player map via state module
 
     // If the game stage indicates a new hand is starting, clear old ranks
@@ -154,7 +153,7 @@ function updateCommunityCards(cards, stage) {
 
 /** Handles the display of revealed cards and hand ranks during showdown */
 export function handleShowdownReveal(payload) {
-     addLogMessage(`<strong>Game:</strong> --- Showdown ---`, "game");
+     addLogMessage(`Game: --- Showdown ---`, "game");
      lastHandRanks = payload.handRanks || {}; // Store the received ranks
 
       if (payload.allHands) {
@@ -194,7 +193,7 @@ export function handleShowdownReveal(payload) {
          });
      } else {
         console.warn("Showdown message received without 'allHands' data.");
-        addLogMessage("<strong>System:</strong> Showdown occurred, but card data missing.", "system");
+        addLogMessage("System: Showdown occurred, but card data missing.", "system");
      }
      disableAllActions(); // Ensure actions remain disabled
 }
@@ -210,7 +209,7 @@ export function handleShowdownReveal(payload) {
          payload.winners.forEach(winner => {
               // Use name from payload if available, otherwise lookup in state
               const winnerName = winner.playerName || state.playerMap[winner.playerId]?.name || `Player ${winner.playerId}`;
-              let winMessage = `<strong>${winnerName}</strong> wins $${winner.amount}`;
+              let winMessage = `${winnerName} wins $${winner.amount}`;
               // Add hand details if it wasn't an uncontested win AND rank is available
               if (!payload.isUncontested && winner.handRank) {
                   winMessage += ` with ${winner.handRank}`;
@@ -225,9 +224,9 @@ export function handleShowdownReveal(payload) {
               addLogMessage(winMessage, "game");
          });
      } else {
-         addLogMessage("<strong>Game:</strong> Pot awarded, but no winner information received.", "system");
+         addLogMessage("Game: Pot awarded, but no winner information received.", "system");
      }
-     addLogMessage(`<strong>Game:</strong> --- Hand Over ---`, "game");
+     addLogMessage(`Game: --- Hand Over ---`, "game");
      disableAllActions(); // Actions should already be disabled, but ensure it
      state.setCurrentTurnOptions(null); // Clear any lingering turn options
  }
