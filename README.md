@@ -51,15 +51,15 @@ Here's the flow of a typical hand:
 
 ### ✨ Standard Poker Hand Rankings (Highest to Lowest) ✨
 
-1.  **Royal Flush**: A, K, Q, J, 10, all of the same suit (e.g., A♠️ K♠️ Q♠️ J♠️ 10♠️).
-2.  **Straight Flush**: Five cards in sequence, all of the same suit (e.g., 9❤️ 8❤️ 7❤️ 6❤️ 5❤️).
-3.  **Four of a Kind**: Four cards of the same rank (e.g., J♣️ J♠️ J❤️ J♦️ 5♦️).
-4.  **Full House**: Three cards of one rank and two cards of another rank (e.g., K K K ♠️ 7♦️ 7♣️).
-5.  **Flush**: Any five cards of the same suit, not in sequence (e.g., A♦️ Q♦️ 8♦️ 4♦️ 2♦️).
-6.  **Straight**: Five cards in sequence, but not all of the same suit (e.g., 7♠️ 6❤️ 5♦️ 4♣️ 3♠️).
-7.  **Three of a Kind**: Three cards of the same rank (e.g., 9 9 9 ♠️ K♦️ 2♣️).
-8.  **Two Pair**: Two cards of one rank, two cards of another rank (e.g., A♠️ A♦️ 8♣️ 8❤️ Q♠️).
-9.  **One Pair**: Two cards of the same rank (e.g., 10 10 ♣️ 7♠️ 4❤️ 2♦️).
+1.  **Royal Flush**: A, K, Q, J, 10, all of the same suit (A♠️ K♠️ Q♠️ J♠️ 10♠️).
+2.  **Straight Flush**: Five cards in sequence, all of the same suit (9❤️ 8❤️ 7❤️ 6❤️ 5❤️).
+3.  **Four of a Kind**: Four cards of the same rank (J♣️ J♠️ J❤️ J♦️ 5♦️).
+4.  **Full House**: Three cards of one rank and two cards of another rank (K❤️ K♦️ K ♠️ 7♦️ 7♣️).
+5.  **Flush**: Any five cards of the same suit, not in sequence (A♦️ Q♦️ 8♦️ 4♦️ 2♦️).
+6.  **Straight**: Five cards in sequence, but not all of the same suit (7♠️ 6❤️ 5♦️ 4♣️ 3♠️).
+7.  **Three of a Kind**: Three cards of the same rank (9♣️ 9♦️ 9♠️ K♦️ 2♣️).
+8.  **Two Pair**: Two cards of one rank, two cards of another rank (A♠️ A♦️ 8♣️ 8❤️ Q♠️).
+9.  **One Pair**: Two cards of the same rank (10♠️ 10 ♣️ 7♠️ 4❤️ 2♦️).
 10. **High Card**: If no one has any of the above, the highest card wins 
 
 ---
